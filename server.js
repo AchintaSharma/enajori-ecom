@@ -51,7 +51,7 @@ app.get("/", (req, res) => {
  * Plug in routes
  */
 require("./routes/auth.route")(app);
-// require("./routes/user.routes")(app);
+require("./routes/user.route")(app);
 // require("./routes/address.routes")(app);
 // require("./routes/product.routes")(app);
 // require("./routes/order.routes")(app);
