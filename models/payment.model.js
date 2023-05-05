@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-//Create payment schema
+// Create payment schema
 const paymentSchema = new mongoose.Schema(
   {
     order: {

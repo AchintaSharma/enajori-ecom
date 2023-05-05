@@ -1,14 +1,14 @@
-//Import npm modules
+// Import npm modules
 const bcrypt = require("bcryptjs");
 
-//Import models
+// Import models
 const User = require("../models/user.model");
 
-//Import configs
+// Import configs
 const { roles } = require("./constants");
 const { salt } = require("../configs/auth.config");
 
-//Init script
+// Init script
 module.exports = async () => {
   try {
     const user = await User.findOne({

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-//Create order schema
+// Create order schema
 const orderSchema = new mongoose.Schema(
   {
     user: {

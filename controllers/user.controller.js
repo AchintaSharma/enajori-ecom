@@ -1,13 +1,22 @@
-//Import npm modules
-const bcrypt = require("bcryptjs");
-
-//Import models & constans
+// Import models & constans
 const User = require("../models/user.model");
 const { roles } = require("../utils/constants");
 
-// Function for viewing user by id
+//  Function for viewing user by id
 const viewUser = async (req, res) => {
   const userId = req.params.id;
+
+  // Allow only admin or the owner to update account
+  const isAdmin = req.user.role == roles.admin;
+  const isUserAccountOwner = userId == req.user.id;
+
+  if (!isAdmin && !isUserAccountOwner) {
+    return res.status(400).send({
+      success: false,
+      status: 400,
+      error: "Only the admin or the account owner can view this account.",
+    });
+  }
 
   try {
     const user = await User.findOne({ _id: userId });
@@ -38,10 +47,10 @@ const viewUser = async (req, res) => {
   }
 };
 
-// Function for viewing all user
+//  Function for viewing all user
 const viewAllUsers = async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await User.find().populate("addresses"); // TODO: Add .populate("orders")
 
     if (!users) {
       return res.status(404).send({
@@ -93,7 +102,7 @@ const viewAllUsers = async (req, res) => {
   }
 };
 
-// Function for updating an user
+//  Function for updating an user
 const updateUser = async (req, res) => {
   const userId = req.params.id;
 
@@ -106,6 +115,18 @@ const updateUser = async (req, res) => {
         status: 404,
         message: `User not found for id - ${userId}.`,
         field: "req.params.id",
+      });
+    }
+
+    // Allow only admin or the owner to update account
+    const isAdmin = req.user.role == roles.admin;
+    const isUserAccountOwner = userId == req.user.id;
+
+    if (!isAdmin && !isUserAccountOwner) {
+      return res.status(400).send({
+        success: false,
+        status: 400,
+        error: "Only the admin or the account owner can update this account.",
       });
     }
 
@@ -140,11 +161,11 @@ const updateUser = async (req, res) => {
   }
 };
 
-// Function for deleting an user
+//  Function for deleting an user
 const deleteUser = async (req, res) => {
   const userId = req.params.id;
 
-  //Allow only admin or the owner to delete account
+  // Allow only admin or the owner to delete account
   const isAdmin = req.user.role == roles.admin;
   const isUserAccountOwner = userId == req.user.id;
   console.log(

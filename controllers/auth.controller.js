@@ -1,21 +1,21 @@
-//Import npm modules
+// Import npm modules
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-//Import configs
+// Import configs
 const authConfig = require("../configs/auth.config");
 const { salt, jwtExpiryTime } = require("../configs/auth.config");
 
-//Import models
+// Import models
 const User = require("../models/user.model");
 
-// Function for admin signup
+//  Function for admin signup
 const signUp = async (req, res) => {
   const { userName, email, password, phone } = req.body;
 
-  //Encrypt password
+  // Encrypt password
   const hashedPassword = bcrypt.hashSync(password, parseInt(salt));
-  // Fetch and store user data in user object
+  //  Fetch and store user data in user object
   const userObj = {
     userName,
     email,
@@ -23,7 +23,7 @@ const signUp = async (req, res) => {
     phone,
   };
 
-  // Create user
+  //  Create user
   try {
     const userCreated = await User.create(userObj);
 
@@ -48,9 +48,9 @@ const signUp = async (req, res) => {
   }
 };
 
-//Function for user login
+// Function for user login
 const login = async (req, res) => {
-  // Fetch user and verify password
+  //  Fetch user and verify password
   try {
     const user = await User.findOne({
       email: req.body.email,
@@ -79,7 +79,7 @@ const login = async (req, res) => {
       });
     }
 
-    // Issue jwt token and add user name and email to payload
+    //  Issue jwt token and add user name and email to payload
     const token = jwt.sign(
       {
         id: user._id,

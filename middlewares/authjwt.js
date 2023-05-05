@@ -21,7 +21,7 @@ const verifyToken = (req, res, next) => {
     }
 
     const user = await User.findOne({ email: decoded.email });
-    req.user = user; //saving user data in req
+    req.user = user; // saving user data in req
     next();
   });
 };

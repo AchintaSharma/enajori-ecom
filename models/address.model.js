@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-//Create address schema
+// Create address schema
 const addressSchema = new mongoose.Schema(
   {
     user: {

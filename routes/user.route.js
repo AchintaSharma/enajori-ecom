@@ -8,15 +8,11 @@ module.exports = (app) => {
     userController.viewAllUsers
   );
 
-  app.get(
-    "/enajori/api/v1/users/:id",
-    [verifyToken, isAdmin],
-    userController.viewUser
-  );
+  app.get("/enajori/api/v1/users/:id", [verifyToken], userController.viewUser);
 
   app.patch(
     "/enajori/api/v1/users/:id",
-    [verifyToken, isAdmin],
+    [verifyToken],
     userController.updateUser
   );
 

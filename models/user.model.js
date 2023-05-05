@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const constants = require("../utils/constants");
 
-//Create user schema
+// Create user schema
 const userSchema = new mongoose.Schema(
   {
     userName: {
