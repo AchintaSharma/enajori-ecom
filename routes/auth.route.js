@@ -1,11 +1,21 @@
 const authController = require("../controllers/auth.controller");
-// const {
-//   validateSignUpRequestBody,
-//   validateLoginRequestBody,
-// } = require("../middlewares/validateAuthRequests");
+const {
+  validateSignUpRequestBody,
+  validateLoginRequestBody,
+} = require("../middlewares/validateAuthRequests");
 
 module.exports = (app) => {
-  app.post("/enajori/api/v1/auth/signup", authController.signUp);
+  // API for user sign up
+  app.post(
+    "/enajori/api/v1/auth/signup",
+    [validateSignUpRequestBody],
+    authController.signUp
+  );
 
-  app.post("/enajori/api/v1/auth/login", authController.login);
+  // API for user login
+  app.post(
+    "/enajori/api/v1/auth/login",
+    [validateLoginRequestBody],
+    authController.login
+  );
 };

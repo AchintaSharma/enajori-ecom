@@ -180,3 +180,5 @@ module.exports = {
   viewProductCategories,
   deleteProduct,
 };
+
+//TODO: Product search query

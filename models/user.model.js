@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const constants = require("../utils/constants");
+const { roles } = require("../utils/constants");
 
 // Create user schema
 const userSchema = new mongoose.Schema(
@@ -23,8 +23,8 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      default: constants.roles.user,
-      enum: [constants.roles.admin, constants.roles.user],
+      default: roles.user,
+      enum: [roles.admin, roles.user],
     },
     addresses: [
       {

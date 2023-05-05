@@ -6,18 +6,6 @@ const { roles } = require("../utils/constants");
 const viewUser = async (req, res) => {
   const userId = req.params.id;
 
-  // Allow only admin or the owner to update account
-  const isAdmin = req.user.role == roles.admin;
-  const isUserAccountOwner = userId == req.user.id;
-
-  if (!isAdmin && !isUserAccountOwner) {
-    return res.status(400).send({
-      success: false,
-      status: 400,
-      error: "Only the admin or the account owner can view this account.",
-    });
-  }
-
   try {
     const user = await User.findOne({ _id: userId });
     if (!user) {
@@ -118,38 +106,23 @@ const updateUser = async (req, res) => {
       });
     }
 
-    // Allow only admin or the owner to update account
-    const isAdmin = req.user.role == roles.admin;
-    const isUserAccountOwner = userId == req.user.id;
-
-    if (!isAdmin && !isUserAccountOwner) {
-      return res.status(400).send({
-        success: false,
-        status: 400,
-        error: "Only the admin or the account owner can update this account.",
-      });
-    }
-
     user.userName = req.body.userName || user.userName;
     user.email = req.body.email || user.email;
     user.phone = req.body.phone || user.phone;
 
+    // TODO: Fix bug where email is updated after that if we try to update again it shows error
+    // Update user email in req.user
+    req.user.email = user.email;
+
     const updatedUser = await user.save();
+
+    const { password, ...updatedUserWithoutPassword } = updatedUser.toObject();
 
     return res.status(200).send({
       success: true,
       status: 200,
       message: "User data updated successfully.",
-      user: {
-        id: user._id,
-        userName: user.userName,
-        email: user.email,
-        phone: user.phone,
-        addresses: user.addresses,
-        orders: user.orders,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt,
-      },
+      user: updatedUserWithoutPassword,
     });
   } catch (err) {
     console.log(`Error while updating user's data: ${err.message}`);
@@ -168,9 +141,6 @@ const deleteUser = async (req, res) => {
   // Allow only admin or the owner to delete account
   const isAdmin = req.user.role == roles.admin;
   const isUserAccountOwner = userId == req.user.id;
-  console.log(
-    `isAdmin: ${isAdmin} , isUSerAccountOwner: ${isUserAccountOwner}`
-  );
   if (!isAdmin && !isUserAccountOwner) {
     return res.status(400).send({
       success: false,
