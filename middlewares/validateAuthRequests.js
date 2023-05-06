@@ -8,9 +8,10 @@ const {
 
 // Function to validate user's signup data
 const validateSignUpRequestBody = async (req, res, next) => {
+  const { userName, email, password, role } = req.body;
   try {
     // Validate whether name is provided
-    if (!req.body.userName) {
+    if (!userName) {
       return res.status(400).send({
         status: 400,
         success: false,
@@ -20,7 +21,7 @@ const validateSignUpRequestBody = async (req, res, next) => {
     }
 
     // Validate whether email is provided
-    if (!req.body.email) {
+    if (!email) {
       return res.status(400).send({
         status: 400,
         success: false,
@@ -30,7 +31,7 @@ const validateSignUpRequestBody = async (req, res, next) => {
     }
 
     // Validate whether email is already taken
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: email });
 
     if (user != null) {
       return res.status(400).send({
@@ -42,7 +43,7 @@ const validateSignUpRequestBody = async (req, res, next) => {
     }
 
     // Validate email id foramt
-    if (req.body.email && !isValidEmail(req.body.email)) {
+    if (email && !isValidEmail(email)) {
       return res.status(400).send({
         status: 400,
         success: false,
@@ -52,7 +53,7 @@ const validateSignUpRequestBody = async (req, res, next) => {
     }
 
     // Validate whether password is provided
-    if (!req.body.password) {
+    if (!password) {
       return res.status(400).send({
         status: 400,
         success: false,
@@ -62,7 +63,7 @@ const validateSignUpRequestBody = async (req, res, next) => {
     }
 
     // Validate password format
-    if (req.body.password && !isValidPassword(req.body.password)) {
+    if (password && !isValidPassword(password)) {
       return res.status(400).send({
         status: 400,
         success: false,
@@ -73,7 +74,7 @@ const validateSignUpRequestBody = async (req, res, next) => {
     }
 
     // Restrict admin creation from the frontend
-    if (req.body.role && req.body.role === roles.admin) {
+    if (role && role === roles.admin) {
       return res.status(400).send({
         status: 400,
         success: false,
@@ -83,7 +84,7 @@ const validateSignUpRequestBody = async (req, res, next) => {
     }
 
     // Validate whether phone number is provided
-    if (!req.body.phone) {
+    if (!phone) {
       return res.status(400).send({
         status: 400,
         success: false,
@@ -93,7 +94,7 @@ const validateSignUpRequestBody = async (req, res, next) => {
     }
 
     // Validate phone number format
-    if (req.body.phone && !isValidPhone(req.body.phone)) {
+    if (phone && !isValidPhone(phone)) {
       return res.status(400).send({
         status: 400,
         success: false,
@@ -115,8 +116,9 @@ const validateSignUpRequestBody = async (req, res, next) => {
 };
 
 const validateLoginRequestBody = (req, res, next) => {
+  const { email, password } = req.body;
   // Validate whether email is provided
-  if (!req.body.email) {
+  if (!email) {
     return res.status(400).send({
       success: false,
       status: 400,
@@ -126,7 +128,7 @@ const validateLoginRequestBody = (req, res, next) => {
   }
 
   // Validate whether password is provided
-  if (!req.body.password) {
+  if (!password) {
     return res.status(400).send({
       success: false,
       status: 400,

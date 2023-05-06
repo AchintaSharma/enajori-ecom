@@ -1,10 +1,14 @@
 const addressController = require("../controllers/address.controller");
 const { verifyToken } = require("../middlewares/authjwt");
+const {
+  validateAddressCreateRequestBody,
+  validateAddressUpdateRequestBody,
+} = require("../middlewares/vallidateAddressRequests");
 
 module.exports = (app) => {
   app.post(
     "/enajori/api/v1/addresses",
-    [verifyToken],
+    [verifyToken, validateAddressCreateRequestBody],
     addressController.createAddress
   );
 
@@ -16,7 +20,7 @@ module.exports = (app) => {
 
   app.patch(
     "/enajori/api/v1/addresses/:addressId",
-    [verifyToken],
+    [verifyToken, validateAddressUpdateRequestBody],
     addressController.updateAddress
   );
 
@@ -26,3 +30,5 @@ module.exports = (app) => {
     addressController.deleteAddress
   );
 };
+
+//TODO: how to apply is admin or owner to address routes

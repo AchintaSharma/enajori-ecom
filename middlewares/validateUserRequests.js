@@ -5,7 +5,6 @@ const { roles } = require("../utils/constants");
 
 const validateUserUpdateRequestBody = async (req, res, next) => {
   const { userName, email, phone, role } = req.body;
-  console.log(email);
   try {
     // Validate if name field is updated to empty value
     if (userName?.trim() === "") {
@@ -68,22 +67,12 @@ const validateUserUpdateRequestBody = async (req, res, next) => {
       });
     }
     // Validate of email is updated to empty value
-    if (phone?.trim() === "") {
+    if (phone && phone?.trim() === "") {
       return res.status(400).send({
         status: 400,
         success: false,
         field: "phone",
         error: "Phone is not provided.",
-      });
-    }
-
-    // Validate whether phone number is provided
-    if (!phone) {
-      return res.status(400).send({
-        status: 400,
-        success: false,
-        field: "phone",
-        error: "Phone number is not provided.",
       });
     }
 
