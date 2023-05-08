@@ -12,7 +12,7 @@ const User = require("../models/user.model");
 //  Function for admin signup
 const signUp = async (req, res) => {
   const { userName, email, password, phone } = req.body;
-
+  console.log("controller: ", phone);
   // Encrypt password
   const hashedPassword = bcrypt.hashSync(password, parseInt(salt));
   //  Fetch and store user data in user object

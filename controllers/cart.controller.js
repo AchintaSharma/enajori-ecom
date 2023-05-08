@@ -160,7 +160,7 @@ const clearCart = async (req, res) => {
 
     const cart = await Cart.findOneAndUpdate(
       { user: userId },
-      { $set: { products: [] } },
+      { $set: { items: [] } },
       { new: true }
     );
 
@@ -241,81 +241,56 @@ const updateCart = async (req, res) => {
   }
 };
 
-// Function to calculate total price of cart
+// Function to calculate total price of items in cart
 const calculateTotal = async (req, res) => {
   try {
     const userId = req.user.id;
-    const cart = await Cart.findOne({ user: userId }).populate(
-      "products.product"
-    );
+
+    const cart = await Cart.findOne({ user: userId }).populate("items.product");
 
     if (!cart) {
       return res.status(404).json({
-        success: false,
+        success: true,
         status: 404,
-        error: "Cart not found",
+        message: `Cart not found for user ${req.user.userName}.`,
       });
     }
 
-    const totalPrice = cart.products.reduce(
-      (acc, product) => acc + product.product.price * product.quantity,
-      0
-    );
+    let itemsPrice = 0;
+    for (let i = 0; i < cart.items.length; i++) {
+      const item = cart.items[i];
+      const { product, quantity } = item;
 
-    console.log(`Total price of cart for user ${userId} calculated.`);
+      if (!product) {
+        continue;
+      }
+
+      const { price } = product;
+
+      itemsPrice += price * quantity;
+    }
+    itemsPrice = itemsPrice.toFixed(2);
+    console.log(`Total price of items in cart: ${itemsPrice}.`);
 
     return res.status(200).json({
       success: true,
       status: 200,
-      message: `Total price of cart for user ${userId} calculated.`,
-      totalPrice,
+      message: `Total price of items in cart: ${itemsPrice}.`,
+      itemsPrice: parseFloat(itemsPrice),
     });
   } catch (error) {
     console.error(
-      `Error while calculating total price of cart: ${error.message}`
+      `Error while calculating total price of items in cart: ${error.message}`
     );
     return res.status(500).json({
       success: false,
       status: 500,
-      error: "Internal server error while calculating total price of cart.",
+      error:
+        "Internal server error while calculating total price of items in cart.",
     });
   }
 };
 
-// Function to save cart
-const saveCart = async (req, res) => {
-  try {
-    const { userId } = req.user;
-
-    const cart = await Cart.findOne({ user: userId }).populate(
-      "products.product"
-    );
-
-    if (!cart) {
-      return res.status(404).json({
-        success: false,
-        status: 404,
-        error: "Cart not found",
-      });
-    }
-
-    console.log(`Cart for user ${userId} found.`);
-
-    return res.status(200).json({
-      success: true,
-      status: 200,
-      message: `Cart for user ${userId} found.`,
-      cart,
-    });
-  } catch (error) {
-    console.error(`Error while viewing cart: ${error.message}`);
-    return res.status(500).json({
-      success: false,
-      status: 500,
-      error: "Internal server error while viewing cart.",
-    });
-  }
-};
 module.exports = {
   addToCart,
   removeFromCart,
@@ -323,5 +298,4 @@ module.exports = {
   clearCart,
   updateCart,
   calculateTotal,
-  saveCart,
 };

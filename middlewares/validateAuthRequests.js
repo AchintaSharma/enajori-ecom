@@ -8,7 +8,7 @@ const {
 
 // Function to validate user's signup data
 const validateSignUpRequestBody = async (req, res, next) => {
-  const { userName, email, password, role } = req.body;
+  const { userName, email, password, phone, role } = req.body;
   try {
     // Validate whether name is provided
     if (!userName) {

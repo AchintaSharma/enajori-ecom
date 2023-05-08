@@ -32,4 +32,11 @@ module.exports = (app) => {
     [verifyToken],
     cartController.updateCart
   );
+
+  // API for calculating total price of cart items
+  app.post(
+    "/enajori/api/v1/cartAmount",
+    [verifyToken],
+    cartController.calculateTotal
+  );
 };

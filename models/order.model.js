@@ -27,8 +27,13 @@ const orderSchema = new mongoose.Schema(
       required: true,
     },
     paymentDetails: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Address",
+      // type: mongoose.Schema.Types.ObjectId,
+      // ref: "Payment",
+    },
+    itemsPrice: {
+      type: Number,
+      required: true,
+      default: 0.0,
     },
     taxPrice: {
       type: Number,
