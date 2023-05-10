@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const cors = require("cors");
 
 // import configs
 const dbConfig = require("./configs/db.config");
@@ -21,6 +22,7 @@ const app = express();
 
 // assign middlewares
 app.use(express.json());
+app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -56,6 +58,7 @@ require("./routes/address.route")(app);
 require("./routes/product.route")(app);
 require("./routes/cart.route")(app);
 require("./routes/order.route")(app);
+require("./routes/payment.route")(app);
 /**
  * Start the server
  */
