@@ -5,6 +5,7 @@ module.exports = {
   },
   paymentMethods: {
     stripe: "Stripe",
+    razorpay: "Razorpay",
     cod: "Cash on delivery",
   },
 };

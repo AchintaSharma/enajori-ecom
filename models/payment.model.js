@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { stripe, cod } = require("../utils/constants/paymentMethods");
+const { paymentMethods } = require("../utils/constants");
 // Create payment schema
 const paymentSchema = new mongoose.Schema(
   {
@@ -11,7 +11,7 @@ const paymentSchema = new mongoose.Schema(
     paymentMethod: {
       type: String,
       required: true,
-      enum: [stripe, cod],
+      enum: [paymentMethods.stripe, paymentMethods.cod],
     },
     paymentResult: {
       id: String,

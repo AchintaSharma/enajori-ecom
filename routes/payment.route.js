@@ -3,19 +3,26 @@ const { verifyToken } = require("../middlewares/authjwt");
 const { isAdmin } = require("../middlewares/isAdmin");
 
 module.exports = (app) => {
-  // API for creating a payment
+  // API for creating a razorpay payment
   app.post(
-    "/enajori/api/v1/payments",
-    [verifyToken],
-    paymentController.createPayment
+    "/enajori/api/v1/payments/razorpay",
+    // [verifyToken],
+    paymentController.createPaymentRazorpay
   );
 
-  // // API for fetching logged in users' order history
-  // app.get(
-  //   "/enajori/api/v1/orders/myOrders",
-  //   [verifyToken],
-  //   paymentController.viewMyOrders
-  // );
+  // API for creating a cod payment
+  app.post(
+    "/enajori/api/v1/payments/cod",
+    [verifyToken],
+    paymentController.createPaymentCod
+  );
+
+  // API for fetching payment details
+  app.get(
+    "/enajori/api/v1/orders/payments/:orderId",
+    [verifyToken],
+    paymentController.getPaymentDetails
+  );
 
   // // API for fetching all user's order history
   // app.get(
