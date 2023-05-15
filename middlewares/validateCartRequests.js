@@ -23,14 +23,11 @@ const validateAddOrUpdateToCartRequestBody = async (req, res, next) => {
 
     next();
   } catch (err) {
-    console.log(
-      `Error while validating product save request body: ${err.message}`
-    );
+    console.log(`Error while validating cart request body: ${err.message}`);
     return res.status(500).send({
       status: 500,
       success: false,
-      error:
-        "Internal server error occurred while validating the product save request.",
+      error: "Internal server error occurred while validating cart request.",
     });
   }
 };

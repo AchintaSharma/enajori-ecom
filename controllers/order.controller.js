@@ -7,14 +7,6 @@ const createOrder = async (req, res) => {
     const { orderItems, shippingAddress, itemsPrice } = req.body;
     const user = req.user.id;
 
-    if (!orderItems || orderItems.length === 0) {
-      return res.status(400).json({
-        success: false,
-        status: 400,
-        error: "No order items found.",
-      });
-    }
-
     const taxPrice = (parseFloat(itemsPrice) * parseFloat(tax)).toFixed(2);
     const shippingPrice = (
       parseFloat(itemsPrice) * parseFloat(shipping)
@@ -142,6 +134,24 @@ const viewAllOrders = async (req, res) => {
 const updateOrderToPaid = async (req, res) => {
   const { paymentDetails } = req.body;
   const { orderId } = req.params;
+
+  if (!orderId) {
+    return res.status(400).json({
+      success: false,
+      status: 400,
+      field: "paymentDetails",
+      error: "Order id is not provided.",
+    });
+  }
+  if (!paymentDetails) {
+    return res.status(400).json({
+      success: false,
+      status: 400,
+      field: "paymentDetails",
+      error: "Payment details not provided for updating order to paid.",
+    });
+  }
+
   try {
     const order = await Order.findById(orderId);
 
@@ -168,7 +178,6 @@ const updateOrderToPaid = async (req, res) => {
     const updatedOrder = await order.save();
 
     console.log(`Payment details updated for order ${updatedOrder._id}`);
-    console.log("updatedOrder: ", updatedOrder);
     return res.status(200).json({
       success: true,
       status: 200,
@@ -191,7 +200,6 @@ const updateOrderToDelivered = async (req, res) => {
 
   try {
     const order = await Order.findById(orderId);
-    console.log("order: ", order);
     if (!order) {
       return res.status(404).json({
         success: false,
@@ -212,12 +220,13 @@ const updateOrderToDelivered = async (req, res) => {
     order.deliveredAt = new Date();
 
     const updatedOrder = await order.save();
+    console.log(`Delivery details updated for order ${updatedOrder._id}`);
 
     return res.status(200).json({
       success: true,
       status: 200,
       message: "Order updated to delivered.",
-      order,
+      updatedOrder,
     });
   } catch (error) {
     console.error(`Error while updating order to delivered: ${error.message}`);

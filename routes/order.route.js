@@ -1,11 +1,16 @@
 const orderController = require("../controllers/order.controller");
 const { verifyToken } = require("../middlewares/authjwt");
 const { isAdmin } = require("../middlewares/isAdmin");
+
+const {
+  validateCreateOrderRequestBody,
+} = require("../middlewares/validateOrdersRequests");
+
 module.exports = (app) => {
   // API for creating an order
   app.post(
     "/enajori/api/v1/orders",
-    [verifyToken],
+    [verifyToken, validateCreateOrderRequestBody],
     orderController.createOrder
   );
 

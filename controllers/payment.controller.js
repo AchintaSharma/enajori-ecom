@@ -13,8 +13,11 @@ const Razorpay = require("razorpay");
 const createPaymentRazorpay = async (req, res) => {
   try {
     //TODO: Provide paymentMethod field from client side
-    const { orderId, paymentMethod = paymentMethods.razorpay } = req.body;
-    let { amount } = req.body;
+    const {
+      orderId,
+      paymentMethod = paymentMethods.razorpay,
+      amount,
+    } = req.body;
 
     //TODO: Send orderId from client side
     // const orderToBePaidFor = await Order.findById(orderId);
@@ -75,6 +78,14 @@ const createPaymentRazorpay = async (req, res) => {
 const getPaymentDetails = async (req, res) => {
   try {
     const { orderId } = req.params;
+
+    if (!orderId) {
+      return res.status(400).json({
+        success: false,
+        status: 400,
+        error: "Order id is not provided.",
+      });
+    }
     const order = await Order.findById(orderId);
 
     if (!order) {
@@ -94,7 +105,7 @@ const getPaymentDetails = async (req, res) => {
     }
 
     const payment = await Payment.findOne({ order: orderId });
-    console.log("payment found:", payment);
+
     return res.status(200).json({
       success: true,
       status: 200,
@@ -162,10 +173,20 @@ const createPaymentCod = async (req, res) => {
   }
 };
 
+// TODO: Check later and finalize
 // Controller to cancel a payment for a particular order
 const cancelPayment = async (req, res) => {
   try {
     const { orderId } = req.body;
+
+    if (!payment) {
+      return res.status(400).json({
+        success: false,
+        status: 400,
+        error: "Order id is not provided.",
+      });
+    }
+
     const payment = await Payment.findOne({ order: orderId });
 
     if (!payment) {
