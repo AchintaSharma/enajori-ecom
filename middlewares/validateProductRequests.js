@@ -62,6 +62,12 @@ const validateProductSaveRequestBody = async (req, res, next) => {
       });
     }
 
+    // store the images in request body to pass to imageStorage middleware
+    req.storeImages = {
+      category,
+      name,
+      images,
+    };
     next();
   } catch (err) {
     console.log(
@@ -142,6 +148,13 @@ const validateProductUpdateRequestBody = async (req, res, next) => {
         error: "Images are not provided or are invalid.",
       });
     }
+
+    // store the images in request body to pass to imageStorage middleware
+    req.storeImages = {
+      category,
+      name,
+      images,
+    };
 
     next();
   } catch (err) {

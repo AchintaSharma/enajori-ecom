@@ -1,5 +1,6 @@
 const productController = require("../controllers/product.controller");
 const { verifyToken } = require("../middlewares/authjwt");
+const { storeImages } = require("../middlewares/imageStorage");
 const { isAdmin } = require("../middlewares/isAdmin");
 const {
   validateProductSaveRequestBody,
@@ -10,7 +11,7 @@ module.exports = (app) => {
   // API for saving a product
   app.post(
     "/enajori/api/v1/products/",
-    [verifyToken, isAdmin, validateProductSaveRequestBody],
+    [verifyToken, validateProductSaveRequestBody, storeImages],
     productController.saveProduct
   );
 
