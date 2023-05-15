@@ -71,7 +71,7 @@ const createPaymentRazorpay = async (req, res) => {
   }
 };
 
-// Controller to get payment details for an order
+// Controller to retrieve the payment details for a particular order
 const getPaymentDetails = async (req, res) => {
   try {
     const { orderId } = req.params;
@@ -161,6 +161,96 @@ const createPaymentCod = async (req, res) => {
     });
   }
 };
+
+// Controller to cancel a payment for a particular order
+const cancelPayment = async (req, res) => {
+  try {
+    const { orderId } = req.body;
+    const payment = await Payment.findOne({ order: orderId });
+
+    if (!payment) {
+      return res.status(404).json({
+        success: false,
+        status: 404,
+        error: "Payment not found.",
+      });
+    }
+
+    if (payment.paymentResult.status === "succeeded") {
+      return res.status(400).json({
+        success: false,
+        status: 400,
+        error: "Payment cannot be cancelled as it has already been completed.",
+      });
+    }
+
+    await payment.remove();
+
+    return res.status(200).json({
+      success: true,
+      status: 200,
+      message: "Payment cancelled successfully.",
+    });
+  } catch (error) {
+    console.error(`Error while cancelling payment: ${error.message}`);
+    return res.status(500).json({
+      success: false,
+      status: 500,
+      error: "Internal server error while cancelling payment.",
+    });
+  }
+};
+
+//TODO: Controller to refund a payment for a particular order
+/*
+// Controller to refund a payment for a particular order
+const refundPayment = async (req, res) => {
+  try {
+    const { orderId, amount } = req.body;
+    const payment = await Payment.findOne({ order: orderId });
+
+    if (!payment) {
+      return res.status(404).json({
+        success: false,
+        status: 404,
+        error: "Payment not found.",
+      });
+    }
+
+    if (payment.paymentMethod !== "stripe") {
+      return res.status(400).json({
+        success: false,
+        status: 400,
+        error: "Refund is only available for Stripe payments.",
+      });
+    }
+
+    const refund = await stripe.refunds.create({
+      payment_intent: payment.paymentResult.id,
+      amount: amount * 100,
+    });
+
+    await Order.findByIdAndUpdate(orderId, {
+      isRefunded: true,
+      refundedAt: Date.now(),
+    });
+
+    return res.status(200).json({
+      success: true,
+      status: 200,
+      message: "Payment refunded successfully.",
+      refund,
+    });
+  } catch (error) {
+    console.error(`Error while refunding payment: ${error.message}`);
+    return res.status(500).json({
+      success: false,
+      status: 500,
+      error: "Internal server error while refunding payment.",
+    });
+  }
+};
+*/
 module.exports = {
   createPaymentCod,
   createPaymentRazorpay,

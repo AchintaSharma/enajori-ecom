@@ -1,5 +1,8 @@
 const cartController = require("../controllers/cart.controller");
 const { verifyToken } = require("../middlewares/authjwt");
+const {
+  validateAddOrUpdateToCartRequestBody,
+} = require("../middlewares/validateCartRequests");
 
 module.exports = (app) => {
   // API for clearing the cart
@@ -12,7 +15,7 @@ module.exports = (app) => {
   // API for adding a product to cart
   app.post(
     "/enajori/api/v1/cart/:productId",
-    [verifyToken],
+    [verifyToken, validateAddOrUpdateToCartRequestBody],
     cartController.addToCart
   );
 
@@ -29,7 +32,7 @@ module.exports = (app) => {
   // API for updating the cart
   app.patch(
     "/enajori/api/v1/cart/update/:productId",
-    [verifyToken],
+    [verifyToken, validateAddOrUpdateToCartRequestBody],
     cartController.updateCart
   );
 

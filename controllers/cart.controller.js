@@ -14,7 +14,7 @@ const addToCart = async (req, res) => {
 
     if (!product) {
       return res.status(404).json({
-        success: true,
+        success: false,
         status: 404,
         message: `Product with id ${productId} not found.`,
       });
@@ -67,6 +67,15 @@ const removeFromCart = async (req, res) => {
   try {
     const { productId } = req.params;
     const userId = req.user.id;
+
+    if (!productId) {
+      return res.status(400).json({
+        success: false,
+        status: 400,
+        field: "productId",
+        message: `Product id is not provided in params.`,
+      });
+    }
 
     const productExistsInCart = await Cart.findOne({
       user: userId,
@@ -215,7 +224,7 @@ const updateCart = async (req, res) => {
 
     const cart = await Cart.findOneAndUpdate(
       { user: userId, "items.product": productId },
-      { $set: { "items.$.quantity": quantity } },
+      { $inc: { "items.$.quantity": quantity } },
       { new: true }
     ).populate("items");
 
