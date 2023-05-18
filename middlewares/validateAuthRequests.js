@@ -16,7 +16,7 @@ const validateSignUpRequestBody = async (req, res, next) => {
         status: 400,
         success: false,
         field: "userName",
-        error: "User name is not provided.",
+        message: "User name is not provided.",
       });
     }
 
@@ -26,7 +26,7 @@ const validateSignUpRequestBody = async (req, res, next) => {
         status: 400,
         success: false,
         field: "email",
-        error: "Email is not provided.",
+        message: "Email is not provided.",
       });
     }
 
@@ -38,7 +38,7 @@ const validateSignUpRequestBody = async (req, res, next) => {
         status: 400,
         success: false,
         field: "email",
-        error: "Email is already taken.",
+        message: "Email is already taken.",
       });
     }
 
@@ -48,7 +48,7 @@ const validateSignUpRequestBody = async (req, res, next) => {
         status: 400,
         success: false,
         field: "email",
-        error: "Not a valid email id.",
+        message: "Not a valid email id.",
       });
     }
 
@@ -58,7 +58,7 @@ const validateSignUpRequestBody = async (req, res, next) => {
         status: 400,
         success: false,
         field: "password",
-        error: "Password is not provided.",
+        message: "Password is not provided.",
       });
     }
 
@@ -68,7 +68,7 @@ const validateSignUpRequestBody = async (req, res, next) => {
         status: 400,
         success: false,
         field: "password",
-        error:
+        message:
           "Not a valid password. Password must be 10 to 25 characters containing at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.",
       });
     }
@@ -79,7 +79,7 @@ const validateSignUpRequestBody = async (req, res, next) => {
         status: 400,
         success: false,
         field: "role",
-        error: "Admin cannot be created through this portal.",
+        message: "Admin cannot be created through this portal.",
       });
     }
 
@@ -89,7 +89,7 @@ const validateSignUpRequestBody = async (req, res, next) => {
         status: 400,
         success: false,
         field: "phone",
-        error: "Phone number is not provided.",
+        message: "Phone number is not provided.",
       });
     }
 
@@ -99,7 +99,7 @@ const validateSignUpRequestBody = async (req, res, next) => {
         status: 400,
         success: false,
         field: "phone",
-        error: "Not a valid phone number.",
+        message: "Not a valid phone number.",
       });
     }
 

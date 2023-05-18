@@ -16,7 +16,7 @@ module.exports = async () => {
     });
 
     if (user) {
-      console.log(`Admin user is already present`);
+      console.log(`Admin: ${user.userName}\nEmail: ${user.email}  `);
       return;
     } else {
       const admin = await User.create({

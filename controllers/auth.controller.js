@@ -12,7 +12,6 @@ const User = require("../models/user.model");
 //  Function for admin signup
 const signUp = async (req, res) => {
   const { userName, email, password, phone } = req.body;
-  console.log("controller: ", phone);
   // Encrypt password
   const hashedPassword = bcrypt.hashSync(password, parseInt(salt));
   //  Fetch and store user data in user object
@@ -33,9 +32,22 @@ const signUp = async (req, res) => {
       `${userWithoutPassword.role} ${userWithoutPassword.userName} created. `
     );
 
+    // Issue jwt token and add user name and email to payload
+    const token = jwt.sign(
+      {
+        name: userCreated.name,
+        email: userCreated.email,
+        purpose: "authentication",
+      },
+      authConfig.secret,
+      { expiresIn: jwtExpiryTime }
+    );
+
     return res.status(201).send({
       status: 201,
       success: true,
+      message: `${userWithoutPassword.role} ${userWithoutPassword.userName} registered.`,
+      accessToken: token,
       user: userWithoutPassword,
     });
   } catch (err) {
@@ -61,7 +73,7 @@ const login = async (req, res) => {
         status: 404,
         success: false,
         field: "email",
-        error: "User does not exist.",
+        message: "User does not exist.",
       });
     }
 
@@ -75,7 +87,7 @@ const login = async (req, res) => {
         status: 401,
         success: false,
         field: "password",
-        error: "Wrong password.",
+        message: "Wrong password.",
       });
     }
 
