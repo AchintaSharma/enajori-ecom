@@ -1,5 +1,5 @@
 import { useLocation, useRoutes } from "react-router-dom";
-
+import "./App.css";
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
@@ -8,6 +8,7 @@ import ShopByCategory from "./pages/ShopByCategory/ShopByCategory";
 import ShopByState from "./pages/ShopByState/ShopByState";
 import OurStory from "./pages/OurStory/OurStory";
 import Navbar from "./components/Navbar";
+// import Navbar from "./components/NavbarOld";
 
 function App() {
   let location = useLocation();
