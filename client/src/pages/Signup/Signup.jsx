@@ -24,7 +24,7 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
-    console.log(userName, email, phone, password, confirmPassword);
+    // console.log(userName, email, phone, password, confirmPassword);
     if (!userName || !email || !phone || !password) {
       alert("All fields are required.");
       return;
@@ -35,6 +35,7 @@ const SignUp = () => {
     }
     if (password !== confirmPassword) {
       alert("Passwords do not match");
+      return;
     }
     const signupFormData = {
       userName: userName,
@@ -42,6 +43,7 @@ const SignUp = () => {
       phone: phone,
       password: password,
     };
+
     try {
       const response = await axios.post(
         AUTH_SIGNUP_API,
@@ -67,7 +69,13 @@ const SignUp = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-      <Card elevation={20} sx={{ padding: 3 }}>
+      <Card
+        elevation={20}
+        sx={{
+          padding: 3,
+          mt: 5,
+        }}
+      >
         <Typography component="h1" textAlign="center" variant="h5">
           {" "}
           Sign up{" "}
@@ -154,7 +162,7 @@ const SignUp = () => {
           </Grid>
           <Grid item xs={12} textAlign="center">
             <Link href="/login" variant="body2">
-              Don't have an account? Sign in
+              Don't have an account? Sign up.
             </Link>
           </Grid>
         </Grid>
