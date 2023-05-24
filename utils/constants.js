@@ -8,4 +8,12 @@ module.exports = {
     razorpay: "Razorpay",
     cod: "Cash on delivery",
   },
+  deliveryStatus: {
+    pending: "Pending",
+    shipped: "Shipped",
+    delivered: "Delivered",
+  },
+  logistics: {
+    default: "Delhivery",
+  },
 };

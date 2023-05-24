@@ -59,6 +59,8 @@ require("./routes/product.route")(app);
 require("./routes/cart.route")(app);
 require("./routes/order.route")(app);
 require("./routes/payment.route")(app);
+require("./routes/wishlist.route")(app);
+require("./routes/shipping.route")(app);
 /**
  * Start the server
  */

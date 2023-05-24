@@ -21,11 +21,7 @@ const validateCreateOrderRequestBody = async (req, res, next) => {
       });
     }
 
-    if (
-      !itemsPrice ||
-      itemsPrice.trim() === "" ||
-      typeof itemsPrice != "number"
-    ) {
+    if (!itemsPrice || typeof itemsPrice != "number") {
       return res.status(400).json({
         success: false,
         status: 400,
