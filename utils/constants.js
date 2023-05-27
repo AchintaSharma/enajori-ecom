@@ -16,4 +16,9 @@ module.exports = {
   logistics: {
     default: "Delhivery",
   },
+  ticketStatus: {
+    open: "Open",
+    closed: "Closed",
+    blocked: "Blocked",
+  },
 };

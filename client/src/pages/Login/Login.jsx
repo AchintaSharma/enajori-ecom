@@ -105,7 +105,7 @@ const Login = () => {
           </Grid>
           <Grid item xs={12} textAlign="center">
             <Link href="/login" variant="body2">
-              Already have an account? Login.
+              Don't have an account? Sign up.
             </Link>
           </Grid>
         </Grid>

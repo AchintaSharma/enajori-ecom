@@ -1,5 +1,5 @@
 /**
- * This is the main application file
+ * This is the application server file
  */
 
 // import npm modules
@@ -49,9 +49,7 @@ app.get("/", (req, res) => {
   });
 });
 
-/**
- * Plug in routes
- */
+// Plug app routes
 require("./routes/auth.route")(app);
 require("./routes/user.route")(app);
 require("./routes/address.route")(app);
@@ -61,9 +59,9 @@ require("./routes/order.route")(app);
 require("./routes/payment.route")(app);
 require("./routes/wishlist.route")(app);
 require("./routes/shipping.route")(app);
-/**
- * Start the server
- */
+require("./routes/support.route")(app);
+
+// Start the server
 app.listen(serverConfig.PORT, () => {
   console.log(`Server started at PORT : ${serverConfig.PORT}`);
 });
