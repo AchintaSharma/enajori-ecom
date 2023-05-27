@@ -1,5 +1,8 @@
 const wishlistController = require("../controllers/wishlist.controller");
 const { verifyToken } = require("../middlewares/authjwt");
+const {
+  validateWishlistRequestBody,
+} = require("../middlewares/validateWishlistReqeusts");
 
 module.exports = (app) => {
   // API for clearing the wishlist
@@ -12,7 +15,7 @@ module.exports = (app) => {
   // API for adding a product to the wishlist
   app.post(
     "/enajori/api/v1/wishlist/:productId",
-    [verifyToken],
+    [verifyToken, validateWishlistRequestBody],
     wishlistController.addToWishlist
   );
 
@@ -33,7 +36,7 @@ module.exports = (app) => {
   // API for adding an item from the wishlist to the cart
   app.post(
     "/enajori/api/v1/wishlist/:productId/addToCart",
-    [verifyToken],
+    [verifyToken, validateWishlistRequestBody],
     wishlistController.addItemToCartFromWishlist
   );
 };

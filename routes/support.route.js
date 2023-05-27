@@ -1,32 +1,31 @@
 const supportController = require("../controllers/support.controller");
 const { verifyToken } = require("../middlewares/authjwt");
+const {
+  validateCreateSupportTicketFields,
+  validateSendEmailToCustomer,
+  validateTicketIdParam,
+  validateUpdateSupportTicketStatus,
+} = require("../middlewares/validateSupportRequests");
 
 module.exports = (app) => {
-  // API for clearing the support
-  // app.post(
-  //   "/enajori/api/v1/support/clear",
-  //   [verifyToken],
-  //   supportController.clearSupport
-  // );
-
   // API for creating a support
   app.post(
     "/enajori/api/v1/support",
-    [verifyToken],
+    [verifyToken, validateCreateSupportTicketFields],
     supportController.createSupportTicket
   );
 
   // API for updating a support
   app.patch(
     "/enajori/api/v1/support/:ticketId",
-    [verifyToken],
+    [verifyToken, validateUpdateSupportTicketStatus],
     supportController.updateSupportTicketStatus
   );
 
   // API for getting a specific support
   app.get(
     "/enajori/api/v1/support/:ticketId",
-    [verifyToken],
+    [verifyToken, validateTicketIdParam],
     supportController.getSupportTicketById
   );
 
@@ -40,14 +39,14 @@ module.exports = (app) => {
   // API for deleting a support
   app.delete(
     "/enajori/api/v1/support/:ticketId",
-    [verifyToken],
+    [verifyToken, validateTicketIdParam],
     supportController.deleteSupportTicket
   );
 
   // API for sending an email to the customer
   app.post(
     "/enajori/api/v1/support/:ticketId/sendEmail",
-    [verifyToken],
+    [verifyToken, validateSendEmailToCustomer],
     supportController.sendEmailToCustomer
   );
 };

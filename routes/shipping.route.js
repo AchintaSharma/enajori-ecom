@@ -1,5 +1,9 @@
 const shippingController = require("../controllers/shipping.controller");
 const { verifyToken } = require("../middlewares/authjwt");
+const {
+  validateCreateShippingRequestBody,
+  validateGetShippingRequestParams,
+} = require("../middlewares/validateShippingRequests");
 
 module.exports = (app) => {
   // API for calculating shipping rate
@@ -12,7 +16,7 @@ module.exports = (app) => {
   // API for creating shipping
   app.post(
     "/enajori/api/v1/shipping",
-    [verifyToken],
+    [verifyToken, validateCreateShippingRequestBody],
     shippingController.createShipping
   );
 
@@ -26,7 +30,7 @@ module.exports = (app) => {
   // API for getting shipping details
   app.get(
     "/enajori/api/v1/shipping/:shippingId",
-    [verifyToken],
+    [verifyToken, validateGetShippingRequestParams],
     shippingController.getShipping
   );
 
