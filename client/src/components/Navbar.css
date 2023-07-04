@@ -1,0 +1,17 @@
+/* CSS for the dropdown animation
+.dropdown-menu {
+  transition: max-height 0.3s ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.dropdown-menu.open {
+  max-height: 500px; /* Adjust the max-height value as needed */
+/* } */
+.dropdown-menu {
+  display: none;
+}
+
+.dropdown-menu.open {
+  display: block;
+}

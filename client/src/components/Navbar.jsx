@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import "./Navbar.css";
 // Import ui components
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -23,6 +24,29 @@ const pages = [
 // Navbar functional component
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    console.log("Attaching event listener");
+    console.log("Dropdown Ref:", dropdownRef.current);
+
+    const handleOutsideClick = (event) => {
+      console.log("Event target:", event.target);
+      console.log("Is Menu open:", isMenuOpen);
+      if (isMenuOpen && dropdownRef.current) {
+        // setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      console.log("Removing event listener");
+
+      window.removeEventListener("click", handleOutsideClick);
+    };
+  }, [isMenuOpen]);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -98,7 +122,11 @@ const Navbar = () => {
 
       {isMenuOpen && (
         // <div className="bg-gray-100 border-t border-gray-200 dark:bg-gray-900 dark:border-gray-700 lg:hidden">
-        <div className="bg-color2 lg:hidden">
+        // <div ref={dropdownRef} className="bg-color2 lg:hidden">
+        <div
+          ref={dropdownRef}
+          className={`dropdown-menu ${isMenuOpen ? "open" : ""}`}
+        >
           <ul className="font-medium flex flex-col p-4 bg-color2">
             {pages.map((page) => (
               <li key={page}>
@@ -110,6 +138,7 @@ const Navbar = () => {
                       ? "/"
                       : `/${page.replace(/\s+/g, "-").toLowerCase()}`
                   }
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   {page}
                 </Link>

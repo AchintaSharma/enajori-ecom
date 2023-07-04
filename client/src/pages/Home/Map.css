@@ -1,0 +1,41 @@
+.section {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  height: 100vh;
+  padding: 20px;
+  background-color: #3e3e38;
+}
+
+.map-container {
+  position: relative;
+  width: 60%;
+}
+
+.text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  z-index: 1;
+}
+
+.map {
+  width: 100%;
+}
+
+.text p {
+  margin: 0;
+}
+
+.state-name {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  color: #3e3e38;
+}
