@@ -195,7 +195,7 @@ const Map = () => {
           />
         </g>
       </svg>
-      <div className="mt-[-50px] sm:mt-[-60px] md:mt-[-280px] ml-8 md:ml-16 lg:ml-24 text-color4">
+      <div className="mt-[-50px] sm:mt-[-60px] md:mt-[-200px] lg:mt-[-280px] ml-8 md:ml-16 lg:ml-24 text-color4">
         <p className="font-gloock text-2xl sm:text-3xl md:text-3xl">
           {stateName}
         </p>
