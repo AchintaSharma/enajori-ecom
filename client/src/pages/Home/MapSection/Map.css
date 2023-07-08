@@ -1,0 +1,15 @@
+/* Styles for medium screens and above */
+@media screen and (min-width: 768px) {
+  #stateMap {
+    width: 100%; /* Adjust as needed */
+    height: 100%; /* Adjust as needed */
+  }
+}
+
+/* Styles for below medium screens */
+@media screen and (max-width: 767px) {
+  #stateMap {
+    width: 100%; /* Adjust as needed */
+    height: 100%; /* Adjust as needed */
+  }
+}
