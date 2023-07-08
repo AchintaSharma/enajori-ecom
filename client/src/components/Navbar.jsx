@@ -55,6 +55,7 @@ const Navbar = () => {
     <>
       <nav className="bg-color1 shadow-xl">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
+          {/* Hamburger dropdown button */}
           <button
             onClick={toggleMenu}
             type="button"
@@ -71,9 +72,10 @@ const Navbar = () => {
             />
           </button>
 
+          {/* Logo Branding */}
           <a href="/" className="flex items-center">
             <img src={EnajoriLogo} className="h-10 mr-3" alt="Enajori Logo" />
-            <span className="self-center text-2xl font-medium font-poppins whitespace-nowrap dark:text-white ">
+            <span className="self-center text-2xl font-medium font-poppins whitespace-nowrap text-white ">
               Enajori
             </span>
           </a>
@@ -97,6 +99,7 @@ const Navbar = () => {
             })}
           </div>
 
+          {/* Search , Profile and cart*/}
           <div className="flex items-center">
             <FontAwesomeIcon
               icon={faMagnifyingGlass}
@@ -120,9 +123,8 @@ const Navbar = () => {
         </div>
       </nav>
 
+      {/* Dropdown menu */}
       {isMenuOpen && (
-        // <div className="bg-gray-100 border-t border-gray-200 dark:bg-gray-900 dark:border-gray-700 lg:hidden">
-        // <div ref={dropdownRef} className="bg-color2 lg:hidden">
         <div
           ref={dropdownRef}
           className={`dropdown-menu ${isMenuOpen ? "open" : ""}`}
