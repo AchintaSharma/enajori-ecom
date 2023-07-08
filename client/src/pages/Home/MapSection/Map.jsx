@@ -21,8 +21,8 @@ const Map = () => {
       };
     } else {
       return {
-        x: 1500,
-        y: 1200,
+        x: 2200,
+        y: 1350,
       };
     }
   };
@@ -41,13 +41,13 @@ const Map = () => {
       };
     } else {
       return {
-        AR: { x: 700, y: 80 },
-        AS: { x: 450, y: 282 },
-        NL: { x: 930, y: 414 },
-        MN: { x: 882, y: 600 },
-        ML: { x: 470, y: 545 },
-        TR: { x: 644, y: 758 },
-        MZ: { x: 788, y: 766 },
+        AR: { x: 1200, y: 80 },
+        AS: { x: 950, y: 282 },
+        NL: { x: 1430, y: 414 },
+        MN: { x: 1382, y: 600 },
+        ML: { x: 970, y: 545 },
+        TR: { x: 1144, y: 758 },
+        MZ: { x: 1288, y: 766 },
       };
     }
   };
@@ -195,7 +195,7 @@ const Map = () => {
           />
         </g>
       </svg>
-      <div className="mt-[-50px] sm:mt-[-60px] md:mt-[-200px] ml-8 md:ml-16 lg:ml-24 text-color4">
+      <div className="mt-[-50px] sm:mt-[-60px] md:mt-[-280px] ml-8 md:ml-16 lg:ml-24 text-color4">
         <p className="font-gloock text-2xl sm:text-3xl md:text-3xl">
           {stateName}
         </p>
