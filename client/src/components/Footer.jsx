@@ -9,8 +9,8 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-color1 py-8 mt-3 md:mt-5 lg:mt-16">
-      <div className="mx-20">
+    <footer className="bg-color1 py-8">
+      <div className="mx-16">
         <div className="flex justify-center md:justify-start">
           <div className="flex items-center mb-4 ">
             <img src={EnajoriLogo} alt="Enajori Logo" className="h-10 mr-3" />
@@ -21,7 +21,7 @@ const Footer = () => {
         </div>
 
         {/* Footer container for md and lg screens*/}
-        <div className="hidden container md:grid grid-cols-12 gap-4">
+        <div className="hidden container md:grid grid-cols-12 gap-12">
           {/* Branding, social handle and office address */}
           <div className="col-span-4">
             {/* Branding */}
@@ -39,7 +39,10 @@ const Footer = () => {
               </a>
             </div>
             {/* 1.C */}
-            <p className="text-white mb-4">Office Address (Lorem Ipsum)</p>
+            <p className="text-white mb-4">
+              Office Address: Lorem ipsum dolor sit amet consectetur adipisicing
+              elit. Quos veritatis earum iste ex illo
+            </p>
             {/* 1.D */}
             <p className="text-white">&copy; Enajori</p>
           </div>
@@ -85,13 +88,13 @@ const Footer = () => {
           <div className="flex justify-center flex-1">
             <div className="flex mb-4">
               <a href="#" className="mr-10">
-                <FontAwesomeIcon size="xl" color="#EDE5E0" icon={faFacebook} />{" "}
+                <FontAwesomeIcon size="lg" color="#EDE5E0" icon={faFacebook} />{" "}
               </a>
               <a href="#" className="mr-10">
-                <FontAwesomeIcon size="xl" color="#EDE5E0" icon={faInstagram} />{" "}
+                <FontAwesomeIcon size="lg" color="#EDE5E0" icon={faInstagram} />{" "}
               </a>
               <a href="#">
-                <FontAwesomeIcon size="xl" color="#EDE5E0" icon={faTwitter} />{" "}
+                <FontAwesomeIcon size="lg" color="#EDE5E0" icon={faTwitter} />{" "}
               </a>
             </div>
           </div>

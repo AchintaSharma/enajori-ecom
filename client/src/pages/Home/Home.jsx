@@ -1,9 +1,11 @@
 import Map from "./MapSection/Map";
 import Footer from "../../components/Footer";
+import Hero from "./HeroSection/Hero";
+
 const Home = () => {
   return (
     <>
-      <div>Home .. upper content</div>
+      <Hero />
       <Map />
       <Footer />
     </>
