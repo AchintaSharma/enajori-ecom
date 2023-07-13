@@ -12,6 +12,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import EnajoriLogo from "../assets/enajori_logo.png";
 
+import Cart from "./Cart";
+
 // list of pages for navigation bar
 const pages = [
   "HOME",
@@ -25,6 +27,7 @@ const pages = [
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
     console.log("Attaching event listener");
@@ -47,14 +50,37 @@ const Navbar = () => {
     };
   }, [isMenuOpen]);
 
+  const [isNavbarTransparent, setIsNavbarTransparent] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      setIsNavbarTransparent(scrollTop > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const toggleCart = () => {
+    console.log("Toggled Cart");
+    setIsCartOpen(!isCartOpen);
+  };
   return (
     <>
-      <nav className="bg-color1 shadow-xl">
-        <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
+      <nav className="bg-color1 shadow-xl h-20 w-full">
+        {/* <nav
+        className={`fixed  top-0 left-0 right-0 z-50 p-4 transition-all duration-500 ${
+          isNavbarTransparent ? "bg-color1 bg-opacity-50" : "bg-color1"
+        }`}
+      > */}
+        <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4 pt-5">
           {/* Hamburger dropdown button */}
           <button
             onClick={toggleMenu}
@@ -118,11 +144,13 @@ const Navbar = () => {
               color="white"
               size="lg"
               className="h-5 mr-3"
+              onClick={toggleCart}
             />
           </div>
         </div>
       </nav>
-
+      {console.log("cart is open:", isCartOpen)}
+      {isCartOpen && <Cart />}
       {/* Dropdown menu */}
       {isMenuOpen && (
         <div

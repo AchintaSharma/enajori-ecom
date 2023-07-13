@@ -100,7 +100,6 @@ const Products = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
-
   const handleNextPage = () => {
     if (currentPage < Math.ceil(products.length / itemsPerPage)) {
       setCurrentPage(currentPage + 1);

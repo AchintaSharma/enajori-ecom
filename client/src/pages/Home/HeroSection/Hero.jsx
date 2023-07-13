@@ -10,7 +10,7 @@ import { ReactComponent as Mizoram } from "../../../assets/Mizoram.svg";
 
 const Hero = () => {
   return (
-    <div className="relative h-screen">
+    <div className=" relative h-screen">
       {/* <svg className="absolute w-full top-20 left-16" viewBox="0 0 1200 450"> */}
       <svg
         className="absolute w-full z-0 top-20 left-16"
