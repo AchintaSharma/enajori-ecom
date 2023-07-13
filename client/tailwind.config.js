@@ -6,6 +6,7 @@ export default {
       fontFamily: {
         poppins: ["Poppins"],
         gloock: ["Gloock"],
+        roboto: ["Roboto"],
       },
       colors: {
         color1: "#1D1515",
@@ -13,8 +14,9 @@ export default {
         color3: "#8A8A7D",
         color4: "#EDE5E0",
         color5: "#E1E2E4",
+        color6: "#313131",
       },
     },
   },
-  plugins: [],
+  plugins: ["flowbite/plugin"],
 };

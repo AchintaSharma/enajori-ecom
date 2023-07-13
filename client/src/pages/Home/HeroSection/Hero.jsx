@@ -46,7 +46,6 @@ const Hero = () => {
           <Mizoram fill="white" className="" />
         </g>
       </svg>
-      {/* <a href="/" className="flex items-center"> */}
       <img
         src={Item}
         className="absolute top-2/12 left-1/4 md:h-64 lg:h-96 mr-3"

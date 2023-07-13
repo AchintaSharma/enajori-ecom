@@ -88,7 +88,7 @@ const Navbar = () => {
                   className="px-3 py-2 ml-3 text-sm font-[400] font-poppins text-white"
                   key={page}
                   to={
-                    page === "Home"
+                    page === "HOME"
                       ? `/`
                       : `/${page.replace(/\s+/g, "-").toLowerCase()}`
                   }
