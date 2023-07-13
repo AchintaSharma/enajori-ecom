@@ -9,6 +9,7 @@ import ShopByState from "./pages/ShopByState/ShopByState";
 import OurStory from "./pages/OurStory/OurStory";
 
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 // import DemoComponent from "./components/DemoComponent";
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
       <>
         <Navbar />
         {routes}
+        <Footer />
       </>
     );
   }

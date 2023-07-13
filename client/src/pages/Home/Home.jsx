@@ -1,5 +1,4 @@
 import Map from "./MapSection/Map";
-import Footer from "../../components/Footer";
 import Hero from "./HeroSection/Hero";
 import BestSeller from "./BestSeller/BestSeller";
 import WhatsNew from "./WhatsNew/WhatsNew";
@@ -7,11 +6,10 @@ import WhatsNew from "./WhatsNew/WhatsNew";
 const Home = () => {
   return (
     <>
+      <Hero />
       <WhatsNew />
-      {/* <Hero /> */}
       <BestSeller />
       <Map />
-      <Footer />
     </>
   );
 };
